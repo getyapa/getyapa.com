@@ -46,7 +46,7 @@ export const blocks: Block[] = [
     name: "",
     description: "",
     group: "list",
-    prefix: "[ ]",
+    prefix: "[_]",
     attributes: {
       type: "todo",
       checked: false,
@@ -61,17 +61,6 @@ export const blocks: Block[] = [
     attributes: {
       type: "todo",
       checked: true,
-    },
-  },
-  {
-    type: "list",
-    name: "",
-    description: "",
-    group: "list",
-    prefix: "1.",
-    alt: ["2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "10.", "11.", "12."],
-    attributes: {
-      type: "ordered",
     },
   },
 ]

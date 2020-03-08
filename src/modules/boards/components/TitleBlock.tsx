@@ -1,5 +1,5 @@
 import { PostBlock } from "../types"
-import { Inlines } from "./Inlines"
+import { Text } from "./Text"
 
 export interface TitleBlockProps {
   block: PostBlock
@@ -11,19 +11,19 @@ export function TitleBlock(props: TitleBlockProps) {
     case 1:
       return (
         <h2 className="text-4xl font-heading leading-tight">
-          <Inlines inlines={block.text} />
+          <Text text={block.text} />
         </h2>
       )
     case 2:
       return (
         <h3 className="text-2xl font-heading leading-tight">
-          <Inlines inlines={block.text} />
+          <Text text={block.text} />
         </h3>
       )
     default:
       return (
         <h4 className="text-xl font-heading leading-tight">
-          <Inlines inlines={block.text} />
+          <Text text={block.text} />
         </h4>
       )
   }

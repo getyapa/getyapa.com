@@ -56,7 +56,6 @@ export interface ParsePostPayload {
 export function parsePost(payload: ParsePostPayload): Post {
   const { blocks, inlines, text, createdAt, updatedAt } = payload
   const blocksByPrefix = getBlocksByPrefix(blocks)
-  console.log("blocksByPrefix ", blocksByPrefix)
 
   const result: Post = { blocks: [], inlines: [], text, createdAt, updatedAt }
 
