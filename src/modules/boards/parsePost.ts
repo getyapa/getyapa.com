@@ -1,10 +1,12 @@
-import { StringMap } from "./types"
+import { StringMap } from "@common/types"
+
+import { Block, Inline, Post, PostBlock, PostInline } from "./types"
 
 function getBlocksByPrefix(blocks: Block[]): StringMap<Block> {
   const result: StringMap<Block> = {}
 
   for (const block of blocks) {
-    result[block.type] = block
+    result[block.prefix] = block
     if (block.alt) {
       for (const alt of block.alt) {
         result[alt] = block
@@ -43,26 +45,6 @@ function getTextFromLine(words: string[], inlines: Inline[], post: Post): Array<
   return result
 }
 
-export type AttributeMap = StringMap<any>
-
-export interface Block {
-  type: string
-  name: string
-  description: string
-  prefix: string
-  group?: string
-  alt?: string[]
-  attributes?: AttributeMap
-}
-
-export interface Inline {
-  type: string
-  name: string
-  description: string
-  prefix: string
-  attributes?: AttributeMap
-}
-
 export interface ParsePostPayload {
   blocks: Block[]
   inlines: Inline[]
@@ -71,30 +53,10 @@ export interface ParsePostPayload {
   updatedAt: number
 }
 
-export interface PostInline {
-  type: string
-  text: string
-  attributes: AttributeMap
-}
-
-export interface PostBlock {
-  type: string
-  children?: PostBlock[]
-  text?: Array<string | PostInline>
-  attributes: AttributeMap
-}
-
-export interface Post {
-  blocks: PostBlock[]
-  inlines: PostInline[]
-  text: string
-  createdAt: number
-  updatedAt: number
-}
-
 export function parsePost(payload: ParsePostPayload): Post {
   const { blocks, inlines, text, createdAt, updatedAt } = payload
   const blocksByPrefix = getBlocksByPrefix(blocks)
+  console.log("blocksByPrefix ", blocksByPrefix)
 
   const result: Post = { blocks: [], inlines: [], text, createdAt, updatedAt }
 
@@ -103,8 +65,11 @@ export function parsePost(payload: ParsePostPayload): Post {
     const line = _line.trim()
     const words = line.split(" ")
     const block = blocksByPrefix[words[0]]
+
     if (block) {
       const { type, attributes = {} } = block
+      // consumes the first element
+      words.shift()
 
       if (block.group) {
         if (!currentGroup || currentGroup.type !== block.group) {
@@ -112,6 +77,7 @@ export function parsePost(payload: ParsePostPayload): Post {
             type: block.group,
             children: [],
             attributes: {},
+            text: [],
           }
           result.blocks.push(currentGroup)
         }
@@ -123,7 +89,7 @@ export function parsePost(payload: ParsePostPayload): Post {
       } else {
         currentGroup = null
         result.blocks.push({
-          type: "text",
+          type: block.type,
           attributes,
           text: getTextFromLine(words, inlines, result),
         })

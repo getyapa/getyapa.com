@@ -1,81 +1,9 @@
 import { useState } from "react"
 
-import { Block, Inline, parsePost, Post } from "./parsePost"
-
-const blocks: Block[] = [
-  {
-    type: "title",
-    name: "",
-    description: "",
-    prefix: "#",
-    alt: [".title"],
-    attributes: {
-      level: 1,
-    },
-  },
-  {
-    type: "subtitle",
-    prefix: "##",
-    name: "",
-    description: "",
-    alt: [".subtitle"],
-    attributes: {
-      level: 2,
-    },
-  },
-  {
-    type: "list",
-    name: "",
-    description: "",
-    group: "list",
-    prefix: "-",
-    attributes: {
-      type: "unsorted",
-    },
-  },
-  {
-    type: "list",
-    name: "",
-    description: "",
-    group: "list",
-    prefix: "[ ]",
-    attributes: {
-      type: "todo",
-      checked: false,
-    },
-  },
-  {
-    type: "list",
-    name: "",
-    description: "",
-    group: "list",
-    prefix: "[x]",
-    attributes: {
-      type: "todo",
-      checked: true,
-    },
-  },
-  {
-    type: "list",
-    name: "",
-    description: "",
-    group: "list",
-    prefix: "1.",
-    alt: ["2.", "3.", "4.", "5.", "6.", "7.", "8.", "9.", "10.", "11.", "12."],
-    attributes: {
-      type: "ordered",
-    },
-  },
-]
-
-const inlines: Inline[] = [
-  {
-    type: "tag",
-    name: "",
-    description: "",
-    prefix: "#",
-  },
-]
+import { blocks } from "./blocks"
+import { inlines } from "./inlines"
+import { parsePost } from "./parsePost"
+import { Post } from "./types"
 
 function satisfiesQuery(post: Post, query: BoardQuery) {
   if (query.tags) {
