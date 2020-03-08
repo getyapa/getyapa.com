@@ -1,7 +1,7 @@
-import { PostInline } from "../types"
+import { PostInlineDef } from "../types"
 
 export interface TagInlineProps {
-  inline: PostInline
+  inline: PostInlineDef
 }
 
 export function TagInline(props: TagInlineProps) {

@@ -3,9 +3,9 @@ import { useState } from "react"
 import { blocks } from "./blocks"
 import { inlines } from "./inlines"
 import { parsePost } from "./parsePost"
-import { Post } from "./types"
+import { PostDef } from "./types"
 
-function satisfiesQuery(post: Post, query: BoardQuery) {
+function satisfiesQuery(post: PostDef, query: BoardQuery) {
   if (query.tags) {
     for (const tag of query.tags) {
       if (!post.inlines.find(inline => inline.type === "tag" && inline.text === tag)) {
@@ -27,8 +27,8 @@ export interface BoardQuery {
 }
 
 export interface BoardHook {
-  posts: Post[]
-  allPosts: Post[]
+  posts: PostDef[]
+  allPosts: PostDef[]
   editing: number
   query: BoardQuery
   setQuery(query: BoardQuery): void
@@ -39,17 +39,17 @@ export interface BoardHook {
   down(): void
 }
 
-interface FilteredPost extends Post {
+interface FilteredPost extends PostDef {
   unfileredIndex: number
 }
 
 export function useBoard(): BoardHook {
   const [posts, setPosts] = useState<FilteredPost[]>([])
-  const [allPosts, setAllPosts] = useState<Post[]>([])
+  const [allPosts, setAllPosts] = useState<PostDef[]>([])
   const [query, setQuery] = useState<BoardQuery>({})
   const [editing, setEditing] = useState<number>(-1)
 
-  function updatePosts(allPosts: Post[], query: BoardQuery) {
+  function updatePosts(allPosts: PostDef[], query: BoardQuery) {
     const result: FilteredPost[] = []
     allPosts.forEach((p, unfileredIndex) => {
       if (satisfiesQuery(p, query)) {

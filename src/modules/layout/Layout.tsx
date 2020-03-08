@@ -3,5 +3,9 @@ export interface LayoutProps {
 }
 
 export function Layout(props: LayoutProps) {
-  return <div className="h-screen container py-4 mx-auto flex text-gray-700">{props.children}</div>
+  return (
+    <div className="min-h-screen text-gray-700 bg-gray-200">
+      <div className="container py-4 mx-auto flex">{props.children}</div>
+    </div>
+  )
 }

@@ -1,8 +1,8 @@
-import { PostBlock } from "../types"
+import { PostBlockDef } from "../types"
 import { Text } from "./Text"
 
 interface ListItemProps {
-  item: PostBlock
+  item: PostBlockDef
 }
 
 function ListItem(props: ListItemProps) {
@@ -17,7 +17,7 @@ function ListItem(props: ListItemProps) {
       )
     default:
       return (
-        <li>
+        <li className="list-disc">
           <Text text={item.text} />
         </li>
       )
@@ -25,7 +25,7 @@ function ListItem(props: ListItemProps) {
 }
 
 export interface ListBlockProps {
-  block: PostBlock
+  block: PostBlockDef
 }
 
 export function ListBlock(props: ListBlockProps) {

@@ -1,6 +1,6 @@
-import { Block } from "./types"
+import { BlockDef } from "./types"
 
-export const blocks: Block[] = [
+export const blocks: BlockDef[] = [
   {
     type: "title",
     name: "",

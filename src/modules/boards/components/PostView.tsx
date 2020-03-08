@@ -15,7 +15,7 @@ export function PostView(props: PostViewProps) {
 
   const post = board.posts[index]
   return (
-    <div>
+    <div className="py-1 mb-1 border-b">
       {post.blocks.map((b, i) => (
         <Block block={b} key={i} />
       ))}

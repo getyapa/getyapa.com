@@ -1,10 +1,10 @@
 import { Fragment } from "react"
 
-import { PostInline } from "../types"
+import { PostInlineDef } from "../types"
 import { TagInline } from "./TagInline"
 
 interface TextItemProps {
-  item: string | PostInline
+  item: string | PostInlineDef
 }
 
 function TextItem(props: TextItemProps) {
@@ -23,7 +23,7 @@ function TextItem(props: TextItemProps) {
 }
 
 export interface TextProps {
-  text: Array<string | PostInline>
+  text: Array<string | PostInlineDef>
 }
 
 export function Text(props: TextProps) {

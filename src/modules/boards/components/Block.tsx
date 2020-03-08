@@ -1,10 +1,10 @@
-import { PostBlock } from "../types"
+import { PostBlockDef } from "../types"
 import { ListBlock } from "./ListBlock"
 import { ParagraphBlock } from "./ParagraphBlock"
 import { TitleBlock } from "./TitleBlock"
 
 export interface BlockProps {
-  block: PostBlock
+  block: PostBlockDef
 }
 
 export function Block(props: BlockProps) {

@@ -1,9 +1,9 @@
 import { StringMap } from "@common/types"
 
-import { Block, Inline, Post, PostBlock, PostInline } from "./types"
+import { BlockDef, InlineDef, PostBlockDef, PostDef, PostInlineDef } from "./types"
 
-function getBlocksByPrefix(blocks: Block[]): StringMap<Block> {
-  const result: StringMap<Block> = {}
+function getBlocksByPrefix(blocks: BlockDef[]): StringMap<BlockDef> {
+  const result: StringMap<BlockDef> = {}
 
   for (const block of blocks) {
     result[block.prefix] = block
@@ -17,8 +17,8 @@ function getBlocksByPrefix(blocks: Block[]): StringMap<Block> {
   return result
 }
 
-function getTextFromLine(words: string[], inlines: Inline[], post: Post): Array<string | PostInline> {
-  const result: Array<string | PostInline> = []
+function getTextFromLine(words: string[], inlines: InlineDef[], post: PostDef): Array<string | PostInlineDef> {
+  const result: Array<string | PostInlineDef> = []
 
   let current: string = ""
   for (const word of words) {
@@ -46,20 +46,20 @@ function getTextFromLine(words: string[], inlines: Inline[], post: Post): Array<
 }
 
 export interface ParsePostPayload {
-  blocks: Block[]
-  inlines: Inline[]
+  blocks: BlockDef[]
+  inlines: InlineDef[]
   text: string
   createdAt: number
   updatedAt: number
 }
 
-export function parsePost(payload: ParsePostPayload): Post {
+export function parsePost(payload: ParsePostPayload): PostDef {
   const { blocks, inlines, text, createdAt, updatedAt } = payload
   const blocksByPrefix = getBlocksByPrefix(blocks)
 
-  const result: Post = { blocks: [], inlines: [], text, createdAt, updatedAt }
+  const result: PostDef = { blocks: [], inlines: [], text, createdAt, updatedAt }
 
-  let currentGroup: PostBlock
+  let currentGroup: PostBlockDef
   for (const _line of text.split("\n")) {
     const line = _line.trim()
     const words = line.split(" ")

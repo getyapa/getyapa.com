@@ -1,8 +1,8 @@
-import { PostBlock } from "../types"
+import { PostBlockDef } from "../types"
 import { Text } from "./Text"
 
 export interface TitleBlockProps {
-  block: PostBlock
+  block: PostBlockDef
 }
 
 export function TitleBlock(props: TitleBlockProps) {

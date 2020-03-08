@@ -1,6 +1,6 @@
-import { Inline } from "./types"
+import { InlineDef } from "./types"
 
-export const inlines: Inline[] = [
+export const inlines: InlineDef[] = [
   {
     type: "tag",
     name: "",
